@@ -3,14 +3,19 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      python: 3.11
+      python: 3.11  # or your actual version
     commands:
-      - echo Installing dependencies...
-      - pip install -r requirements.txt
+      - pip install flake8
+
+  pre_build:
+    commands:
+      - echo "Running flake8 linting"
+      - flake8 app.py
+
   build:
     commands:
-      - echo Running lint...
-      - flake8 app.py  # or pylint if preferred
+      - echo "Build phase (optional build tasks go here)"
+
 artifacts:
   files:
-    - '**/*'
+    - app.py
