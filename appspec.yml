@@ -1,0 +1,29 @@
+version: 0.0
+os: linux
+files:
+  - source: /
+    destination: /home/ec2-user/flaskapp
+  - source: scripts/
+    destination: /home/ec2-user/flaskapp/scripts
+
+hooks:
+  ApplicationStop:
+    - location: scripts/stop_server.sh
+      timeout: 20
+      runas: ec2-user
+      ignoreApplicationStopFailures: true
+
+  BeforeInstall:
+    - location: scripts/set_permissions.sh
+      timeout: 20
+      runas: ec2-user
+
+  AfterInstall:
+    - location: scripts/install_dependencies.sh
+      timeout: 300
+      runas: ec2-user
+
+  ApplicationStart:
+    - location: scripts/start_server.sh
+      timeout: 60
+      runas: ec2-user
