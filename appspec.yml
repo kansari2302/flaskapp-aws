@@ -3,8 +3,6 @@ os: linux
 files:
   - source: /
     destination: /home/ec2-user/flaskapp
-  - source: scripts/
-    destination: /home/ec2-user/flaskapp/scripts
 
 hooks:
   ApplicationStop:
